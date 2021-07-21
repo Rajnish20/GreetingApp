@@ -16,5 +16,14 @@ public class GreetingController {
         return new Greeting(counter.incrementAndGet(),
                             String.format(template,name));
     }
-    
+
+    @PostMapping("/greeting/post")
+    public Greeting postGreeting(@RequestBody Greeting greeting){
+        return greeting;
+    }
+
+    @PutMapping("/greeting/put/{id}")
+    public Greeting putGreeting(@PathVariable long id, @RequestParam(value="name") String name){
+        return new Greeting(id,String.format(template,name));
+    }
 }
