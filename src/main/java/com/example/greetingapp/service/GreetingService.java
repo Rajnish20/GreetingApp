@@ -17,7 +17,7 @@ public class GreetingService implements IGreetingService{
     GreetingRepository greetingRepository;
     @Override
     public Greeting addGreeting(User user) {
-        String message = String.format(template,user.toString().isEmpty()?"Hello World":user.toString());
+        String message = String.format(template,user.toString());
         return greetingRepository.save(new Greeting(message));
     }
 
@@ -29,6 +29,15 @@ public class GreetingService implements IGreetingService{
     @Override
     public List<Greeting> getAll() {
         return greetingRepository.findAll();
+    }
+
+    @Override
+    public Greeting deleteGreeting(long id) {
+        return greetingRepository.findById(id).
+                map(greeting -> {
+                    this.greetingRepository.deleteById(id);
+                    return greeting;
+                }).get();
     }
 
 }
