@@ -6,6 +6,8 @@ import com.example.greetingapp.service.IGreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class GreetingController {
     @Autowired
@@ -20,6 +22,11 @@ public class GreetingController {
     @GetMapping("/greeting/{id}")
     public Greeting getById(@PathVariable Long id){
         return greetingService.getGreetingById(id);
+    }
+
+    @GetMapping("/greetings")
+    public List<Greeting> getAllGreetings(){
+        return greetingService.getAll();
     }
 
 }
