@@ -40,4 +40,14 @@ public class GreetingService implements IGreetingService{
                 }).get();
     }
 
+    @Override
+    public Greeting updateGreeting(long id,User user) {
+        String message = String.format(template,user.toString());
+        return greetingRepository.findById(id).
+                map(greeting -> {
+                    greeting.setMessage(message);
+                    return this.greetingRepository.save(greeting);
+                }).get();
+    }
+
 }

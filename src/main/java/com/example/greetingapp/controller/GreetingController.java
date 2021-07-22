@@ -13,9 +13,10 @@ public class GreetingController {
     @Autowired
     private IGreetingService greetingService;
 
-    @GetMapping("/greeting")
+    @PostMapping("/greeting")
     public Greeting greeting(@RequestParam(value = "name", defaultValue = "world") String name) {
-        User user = new User(name);
+        User user = new User();
+        user.setFirstName(name);
         return greetingService.addGreeting(user);
     }
 
@@ -32,6 +33,11 @@ public class GreetingController {
     @DeleteMapping("/greeting/{id}")
     public Greeting deleteById(@PathVariable Long id){
         return greetingService.deleteGreeting(id);
+    }
+
+    @PutMapping("/greeting/{id}")
+    public Greeting updateById(@PathVariable Long id, @RequestBody User user){
+        return greetingService.updateGreeting(id,user);
     }
 
 }
